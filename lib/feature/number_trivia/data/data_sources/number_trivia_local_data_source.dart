@@ -1,9 +1,6 @@
 import 'dart:convert';
-
 import 'package:clean_architecture_project/core/error/exceptions.dart';
 import 'package:clean_architecture_project/feature/number_trivia/data/models/number_trivia_model.dart';
-
-import '../../domain/entities/number_trivia.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract interface class NumberTriviaLocalDataSource {
