@@ -23,15 +23,6 @@ class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
   });
 
   @override
-  Future<Either<Failure, NumberTrivia>> getConcreteNumberTrivia(
-    int number,
-  ) async {
-    return await _getTrivia(() {
-      return remoteDataSource.getConcreteNumberTrivia(number);
-    });
-  }
-
-  @override
   Future<Either<Failure, NumberTrivia>> getRandomNumberTrivia() async {
     return await _getTrivia(() {
       return remoteDataSource.getRandomNumberTrivia();
@@ -39,8 +30,8 @@ class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
   }
 
   Future<Either<Failure, NumberTrivia>> _getTrivia(
-      _ConcreteOrRandomChooser getConcreteOrRandom,
-      ) async {
+    _ConcreteOrRandomChooser getConcreteOrRandom,
+  ) async {
     if (await networkInfo.isConnected) {
       try {
         final remoteTrivia = await getConcreteOrRandom();
@@ -51,7 +42,7 @@ class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
       }
     } else {
       try {
-        final localTrivia = await localDataSource.getLastNumberTrivia();
+        final localTrivia = await localDataSource.getRandomCachedTrivia();
         return Right(localTrivia);
       } on CacheException {
         return Left(CacheFailure());

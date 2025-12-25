@@ -11,18 +11,34 @@ class TriviaDisplay extends StatelessWidget {
     return SizedBox(
       height: MediaQuery.of(context).size.height / 3,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            numberTrivia.number.toString(),
-            style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
-          ),
           Expanded(
             child: Center(
               child: SingleChildScrollView(
-                child: Text(
-                  numberTrivia.text,
-                  style: TextStyle(fontSize: 25),
-                  textAlign: TextAlign.center,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        numberTrivia.text,
+                        style: TextStyle(fontSize: 22),
+                        textAlign: TextAlign.center,
+                      ),
+                      if (numberTrivia.source != null) ...[
+                        SizedBox(height: 16),
+                        Text(
+                          'Source: ${numberTrivia.source}',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontStyle: FontStyle.italic,
+                            color: Colors.grey,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ],
+                  ),
                 ),
               ),
             ),

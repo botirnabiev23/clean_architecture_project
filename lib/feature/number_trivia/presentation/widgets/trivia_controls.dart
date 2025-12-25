@@ -2,71 +2,29 @@ import 'package:clean_architecture_project/feature/number_trivia/presentation/bl
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TriviaControls extends StatefulWidget {
+class TriviaControls extends StatelessWidget {
   const TriviaControls({super.key});
 
   @override
-  State<TriviaControls> createState() => _TriviaControlsState();
-}
-
-class _TriviaControlsState extends State<TriviaControls> {
-  String? inputStr;
-  final TextEditingController controller = TextEditingController();
-
-  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        TextField(
-          controller: controller,
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Input Number',
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: ElevatedButton(
+        onPressed: () {
+          context.read<NumberTriviaBloc>().add(GetTriviaForRandomNumberEvent());
+        },
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
           ),
-          onChanged: (value) => inputStr = value,
-          onSubmitted: (_) => dispatchConcrete(),
+          backgroundColor: Colors.blue,
+          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 10),
         ),
-        SizedBox(height: 10),
-        Row(
-          children: <Widget>[
-            SizedBox(width: 10),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () => dispatchConcrete(),
-                style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(Colors.green),
-                ),
-                child: const Text(
-                  'Search',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () {
-                  context.read<NumberTriviaBloc>().add(
-                    GetTriviaForRandomNumberEvent(),
-                  );
-                },
-                child: Text('Random', style: TextStyle(color: Colors.black)),
-              ),
-            ),
-            SizedBox(width: 10),
-          ],
+        child: const Text(
+          'Get Random Fact',
+          style: TextStyle(color: Colors.white, fontSize: 18),
         ),
-      ],
+      ),
     );
-  }
-
-  void dispatchConcrete() {
-    if (inputStr != null) {
-      context.read<NumberTriviaBloc>().add(
-        GetTriviaForConcreteNumberEvent(inputStr ?? ''),
-      );
-    }
-    controller.clear();
   }
 }

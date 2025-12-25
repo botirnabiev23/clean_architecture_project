@@ -4,16 +4,7 @@ sealed class NumberTriviaEvent extends Equatable {
   const NumberTriviaEvent();
 }
 
-class GetTriviaForConcreteNumberEvent extends NumberTriviaEvent {
-  final String numberString;
-
-  const GetTriviaForConcreteNumberEvent(this.numberString);
-
-  @override
-  List<Object?> get props => [numberString];
-}
-
 class GetTriviaForRandomNumberEvent extends NumberTriviaEvent {
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }

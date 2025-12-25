@@ -1,10 +1,9 @@
 import 'package:clean_architecture_project/core/network/network_info.dart';
-import 'package:clean_architecture_project/core/util/input_converter.dart';
+
 import 'package:clean_architecture_project/feature/number_trivia/data/data_sources/number_trivia_local_data_source.dart';
 import 'package:clean_architecture_project/feature/number_trivia/data/data_sources/number_trivia_remote_data_source.dart';
 import 'package:clean_architecture_project/feature/number_trivia/data/repositories/number_trivia_repository_impl.dart';
 import 'package:clean_architecture_project/feature/number_trivia/domain/repositories/number_trivia_repository.dart';
-import 'package:clean_architecture_project/feature/number_trivia/domain/use_cases/get_concrete_number_trivia.dart';
 import 'package:clean_architecture_project/feature/number_trivia/domain/use_cases/get_random_number_trivia.dart';
 import 'package:clean_architecture_project/feature/number_trivia/presentation/bloc/number_trivia_bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -15,15 +14,7 @@ import 'package:dio/dio.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  sl.registerFactory(
-    () => NumberTriviaBloc(
-      getTriviaForConcreteNumber: sl(),
-      getTriviaForRandomNumber: sl(),
-      inputConverter: sl(),
-    ),
-  );
-
-  sl.registerLazySingleton(() => GetConcreteNumberTrivia(sl()));
+  sl.registerFactory(() => NumberTriviaBloc(getRandomNumberTrivia: sl()));
 
   sl.registerLazySingleton(() => GetRandomNumberTrivia(sl()));
 
@@ -43,7 +34,6 @@ Future<void> init() async {
     () => NumberTriviaRemoteDataSourceImpl(dio: sl()),
   );
 
-  sl.registerLazySingleton(() => InputConverter());
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
   final sharedPreferences = await SharedPreferences.getInstance();

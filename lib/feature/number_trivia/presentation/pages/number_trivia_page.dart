@@ -10,12 +10,13 @@ class NumberTriviaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Number Trivia')),
+      appBar: AppBar(title: Text('Random Facts')),
       body: BlocProvider(
         create: (_) => sl<NumberTriviaBloc>(),
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               BlocBuilder<NumberTriviaBloc, NumberTriviaState>(
                 builder: (context, state) {
@@ -35,7 +36,7 @@ class NumberTriviaPage extends StatelessWidget {
                   return Container(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     height: MediaQuery.of(context).size.height / 3,
-                    child: MessageDisplay(message: 'something'),
+                    child: MessageDisplay(message: 'Start random fact'),
                   );
                 },
               ),

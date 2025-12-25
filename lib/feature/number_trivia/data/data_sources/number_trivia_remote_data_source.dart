@@ -5,12 +5,7 @@ import 'package:clean_architecture_project/feature/number_trivia/data/models/num
 import 'package:dio/dio.dart';
 
 abstract interface class NumberTriviaRemoteDataSource {
-  /// Calls the http://numberapi.com/{number} endpoint
-  ///
-  /// Throws a [ServerException] for all error codes
-  Future<NumberTriviaModel> getConcreteNumberTrivia(int number);
-
-  /// Calls the http://numberapi.com/random endpoint
+  /// Calls the https://uselessfacts.jsph.pl/random.json endpoint
   ///
   /// Throws a [ServerException] for all error codes
   Future<NumberTriviaModel> getRandomNumberTrivia();
@@ -22,25 +17,17 @@ class NumberTriviaRemoteDataSourceImpl implements NumberTriviaRemoteDataSource {
   NumberTriviaRemoteDataSourceImpl({required this.dio});
 
   @override
-  Future<NumberTriviaModel> getConcreteNumberTrivia(int number) =>
-      _getTriviaFromUrl('http://numbersapi.com/$number');
-
-  @override
-  Future<NumberTriviaModel> getRandomNumberTrivia() =>
-      _getTriviaFromUrl('http://numbersapi.com/random');
-
-  Future<NumberTriviaModel> _getTriviaFromUrl(String url) async {
-    print('dfsdf');
+  Future<NumberTriviaModel> getRandomNumberTrivia() async {
     final response = await dio.get(
-      url,
+      'https://uselessfacts.jsph.pl/random.json',
       options: Options(headers: {'Content-Type': 'application/json'}),
     );
 
-    print('response');
-    print(response);
-
     if (response.statusCode == 200) {
-      return NumberTriviaModel.fromJson(json.decode(response.data));
+      final data = response.data is String
+          ? json.decode(response.data)
+          : response.data;
+      return NumberTriviaModel.fromJson(data);
     } else {
       throw ServerException();
     }
