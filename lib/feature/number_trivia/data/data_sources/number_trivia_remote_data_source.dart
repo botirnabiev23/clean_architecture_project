@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:clean_architecture_project/core/error/exceptions.dart';
 import 'package:clean_architecture_project/feature/number_trivia/data/models/number_trivia_model.dart';
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 
 abstract interface class NumberTriviaRemoteDataSource {
   /// Calls the https://uselessfacts.jsph.pl/random.json endpoint
@@ -11,6 +12,7 @@ abstract interface class NumberTriviaRemoteDataSource {
   Future<NumberTriviaModel> getRandomNumberTrivia();
 }
 
+@LazySingleton(as: NumberTriviaRemoteDataSource)
 class NumberTriviaRemoteDataSourceImpl implements NumberTriviaRemoteDataSource {
   final Dio dio;
 

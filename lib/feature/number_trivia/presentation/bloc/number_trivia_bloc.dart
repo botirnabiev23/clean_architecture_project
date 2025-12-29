@@ -5,6 +5,7 @@ import 'package:clean_architecture_project/feature/number_trivia/domain/use_case
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clean_architecture_project/feature/number_trivia/domain/entities/number_trivia.dart';
 import 'package:equatable/equatable.dart';
+import 'package:injectable/injectable.dart';
 
 part 'number_trivia_event.dart';
 
@@ -13,6 +14,7 @@ part 'number_trivia_state.dart';
 const String SERVER_FAILURE_MESSAGE = 'Server Failure';
 const String CACHE_FAILURE_MESSAGE = 'Cache Failure';
 
+@injectable
 class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
   final GetRandomNumberTrivia getRandomNumberTrivia;
 

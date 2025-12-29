@@ -43,6 +43,7 @@ dependencies:
   mockito: ^5.6.1
   build_runner: ^2.10.4
   connectivity_plus: ^7.0.0
+  injectable: ^2.7.1+4
 
 dev_dependencies:
   flutter_test:
@@ -54,6 +55,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+  injectable_generator: ^2.12.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

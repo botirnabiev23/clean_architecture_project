@@ -1,5 +1,5 @@
 import 'package:clean_architecture_project/feature/number_trivia/presentation/bloc/number_trivia_bloc.dart';
-import 'package:clean_architecture_project/injection_container.dart';
+import 'package:clean_architecture_project/core/di/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clean_architecture_project/feature/number_trivia/presentation/widgets/widgets.dart';
@@ -40,7 +40,7 @@ class NumberTriviaPage extends StatelessWidget {
                   );
                 },
               ),
-              TriviaControls(),
+              const TriviaControls(),
             ],
           ),
         ),
