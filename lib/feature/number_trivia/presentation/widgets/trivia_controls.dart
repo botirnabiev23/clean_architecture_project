@@ -11,7 +11,7 @@ class TriviaControls extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       child: ElevatedButton(
         onPressed: () {
-          context.read<NumberTriviaBloc>().add(GetTriviaForRandomNumberEvent());
+          context.read<NumberTriviaBloc>().add(NumberTriviaEvent.load());
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(

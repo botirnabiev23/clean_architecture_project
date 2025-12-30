@@ -48,13 +48,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i54.NetworkInfo>(
       () => _i54.NetworkInfoImpl(gh<_i895.Connectivity>()),
     );
-    gh.lazySingleton<_i911.NumberTriviaRemoteDataSource>(
-      () => _i911.NumberTriviaRemoteDataSourceImpl(dio: gh<_i361.Dio>()),
-    );
     gh.lazySingleton<_i923.NumberTriviaLocalDataSource>(
       () => _i923.NumberTriviaLocalDataSourceImpl(
         sharedPreferences: gh<_i460.SharedPreferences>(),
       ),
+    );
+    gh.lazySingleton<_i911.NumberTriviaRemoteDataSource>(
+      () => _i911.NumberTriviaRemoteDataSourceImpl(dio: gh<_i361.Dio>()),
     );
     gh.lazySingleton<_i898.NumberTriviaRepository>(
       () => _i416.NumberTriviaRepositoryImpl(

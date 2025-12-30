@@ -20,23 +20,23 @@ class NumberTriviaPage extends StatelessWidget {
             children: <Widget>[
               BlocBuilder<NumberTriviaBloc, NumberTriviaState>(
                 builder: (context, state) {
-                  if (state is Empty) {
-                    return Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      height: MediaQuery.of(context).size.height / 3,
-                      child: MessageDisplay(message: 'Start searching'),
-                    );
-                  } else if (state is Loading) {
+                  if (state.isLoading) {
                     return LoadingWidget();
-                  } else if (state is Loaded) {
-                    return TriviaDisplay(numberTrivia: state.trivia);
-                  } else if (state is Error) {
-                    return MessageDisplay(message: state.message);
                   }
+
+                  if (state.trivia != null) {
+                    return TriviaDisplay(numberTrivia: state.trivia!);
+                  }
+
+                  final error = state.errorMessage;
+                  if (error != null && error.isNotEmpty) {
+                    return MessageDisplay(message: error);
+                  }
+
                   return Container(
-                    padding: EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     height: MediaQuery.of(context).size.height / 3,
-                    child: MessageDisplay(message: 'Start random fact'),
+                    child: const MessageDisplay(message: 'Start random fact'),
                   );
                 },
               ),
